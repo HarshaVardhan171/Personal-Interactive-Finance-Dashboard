@@ -1,0 +1,194 @@
+Personal Finance Dashboard in Excel
+
+
+Objective:
+To design a dynamic, interactive, and visually compelling personal finance dashboard using Microsoft Excel 2016 
+that tracks income, expenses, and savings trends over time to empower better financial decision-making.
+
+Tools Used:
+	Microsoft Excel 2016
+	Pivot Tables & Charts
+	Data Validation & Lookup Formulas
+	Conditional Formatting & Shape Styling
+
+Process Overview:
+ Data Collection & Import:
+	Exported transaction data directly from bank statements in CSV format.
+	Cleaned and standardized the dataset including columns such as Transaction Date, Description, Debit, Credit, Amount, and Payee Details.
+
+ Data Structuring & Categorization:
+	Created a Master Table for unique payees with assigned Subcategories and Categories (e.g., Groceries → Food & Dining → Expense).
+	Used XLOOKUP/VLOOKUP to auto-fill subcategory, category, and payment type based on the transaction description.
+
+ Payment Mode Identification:
+	Parsed payment modes like UPI, Debit Card, NEFT, ATM, Interest Credit using SEARCH and IF formulas within descriptions for automated classification.
+
+ Interactive Dashboard Design:
+	Implemented Pivot Tables for summarizing key figures: Monthly Spend, Income, Savings, and Top Expense Categories.
+	Used custom shapes, color themes (soft purples and gradients), and icons to build a modern, intuitive user interface.
+	Linked text boxes and icons to pivot outputs for real-time updates and interactive visuals.
+
+ Dynamic Data Model:
+
+	Transformed raw data into structured Excel Tables (Ctrl+T) ensuring seamless pivot refresh and one-click updates for new data (e.g., monthly transactions).
+
+ Key Features:
+	Automated Categorization of all financial transactions
+	Spend Year-To-Date summary with breakdown across major categories
+	Visual tracking of discretionary vs. essential expenses
+	Easy refresh mechanism for month-over-month updates
+
+ Doughnut Chart: Total Spend by Account
+	To enhance the visual breakdown of spending, a doughnut chart was added to the dashboard. 
+	This visual showcases how spending is distributed across different bank accounts (or payment methods), offering a quick glance at fund utilization.
+
+	Steps Followed:
+	 Pivot Table Creation:
+	 Inserted a new pivot table on the Analysis Sheet:
+	 Payment Type as the row field.
+	 Sum of Debit as the value field (formatted as currency, no decimals).
+	 Named the pivot table: PTPayTypePie.
+	 Doughnut Chart Insertion:
+	 Inserted a Doughnut Chart via the "Insert Pie or Doughnut Chart" menu.
+	 Customized:
+	 Legend: Moved to the bottom.
+	 Data Labels: Enabled percentages only (wrapped to a new line), removed leader lines.
+	 Doughnut Hole Size: Reduced from 75% to 50% for a fuller visual.
+	 Chart Title: Set as “Total Spend by Payment Type”.
+	 Dashboard Placement & Styling:
+	 Moved the chart to the Dashboard Sheet and resized it to fit within columns.
+	 Applied a gradient fill background (vertical orientation, two color stops) for consistency with the overall dashboard design.
+	 Enabled rounded corners to match the aesthetic style of other visuals.
+	 Removed unnecessary chart outlines and gridlines for a clean look.
+	 Center-Aligned Total Spend Display:
+	 Inserted a text box in the center of the doughnut to display the total spend.
+	 Linked the text box to the pivot table’s grand total using a reference workaround (typed the cell address instead of direct clicking).
+	 Formatted the box with:
+	 White font, center alignment, no fill, and no outline.
+
+ Dual Column Chart: Monthly Expenses & Net Income
+ To compare monthly expenses and net income side by side, two clustered column charts were created and visually combined into a dual chart.
+	Steps Followed:
+	Pivot Table 1 – Monthly Expenses:
+	Inserted a pivot table filtered by month using the Date field (grouped by Month only)
+	Values: Sum of Debit Amount (formatted as currency without decimals)
+	Named: PTMntExpBar
+	Chart 1 – Expenses Column Chart:
+	Inserted a Clustered Column Chart
+	Customizations:
+	Removed field buttons, legend, and gridlines
+	Added data labels
+	Set vertical axis range: 0 to 230000
+	Adjusted Gap Width to 50% for wider bars
+	Removed shape fill/outline and moved the chart to the Dashboard
+
+	Pivot Table 2 – Net Income:
+	Duplicated the first pivot table, replacing the value with Amount (representing net income).
+	Removed the Category Type field.
+	Formatted the values with comma separator, no decimals.
+	Named: PTMntNetIncBar
+	Chart 2 – Net Income Column Chart:
+	Inserted another Clustered Column Chart.
+	Matched all visual settings with the Expenses chart:
+	Changed axis range (-150000 - 0), same gap width, no gridlines.
+	Applied a fill color and added a trendline in matching color.
+	Removed fill and outline, then placed on the Dashboard below the expenses chart.
+ 
+ Line Chart: Monthly Trend by Expense Category
+ This line chart displays the monthly trend of various expense categories, helping users analyze spending behavior over time.
+	Steps Followed:
+	Pivot Table Setup:
+	Duplicated a previous pivot table and adjusted fields:
+	Named: PTCatExpLine
+	Rows: Date (grouped by month)
+	Filters: Category Type
+	Columns: Category
+	Values: Sum of Amount
+	Removed grand totals and filtered to show only expense categories.
+	Sorted categories in descending order based on only amounts spread across all months for better clarity.
+	Chart Creation – Line Chart:
+	Inserted a Line Chart based on the pivot table.
+	Customizations:
+	Removed field buttons.
+	Placed legend at the top (serves as the chart title).
+	Resized the chart to fit all category names in a single row.
+	Design Enhancements:
+	Cut and placed the chart on the Dashboard sheet
+	Applied consistent formatting:
+	Rounded corners for visual uniformity
+	Matched color scheme with previous charts
+
+ Tree Map Chart: Expense Distribution by Category
+ The tree map visually represents proportional spending across categories, using area size to indicate the amount spent.
+	Steps Followed:
+	Pivot Table Workaround:
+	Rows: Category -> Sub_category
+	Values: Sum of Debit
+	Filters: Category Type
+	Since Excel doesn’t directly support creating a tree map from a pivot table:
+	Copied the pivot data and used Paste Special (Values) to convert it into static data
+	Inserted a Tree Map Chart from this pasted data
+	Right-clicked the Tree Map -> Selected Data -> Edited references to point back to the original pivot table for:
+	Category labels
+	Debit values
+	Formatting:
+	Resized and placed the Tree Map on the Dashboard sheet.
+	Removed chart outline.
+	Since rounded corners are not available for Tree Maps, wrapped it in a rounded rectangle shape for design consistency.
+
+ Waterfall Chart: Income to Net Balance Flow
+ This chart shows how income is reduced by various expenses to arrive at the final balance.
+	Steps:
+	Pivot Table Setup:
+	Created on the Analysis Sheet with:
+	Date in Filters
+	Category in Rows
+	Sum of Amount in Values
+	Named the pivot table PTWaterFall
+	Manual Sorting:
+	Rearranged rows manually to show Salary at the top, followed by expenses.
+	Chart Creation:
+	Copied & pasted pivot data as values (Tree Map workaround).
+	Inserted a Waterfall Chart using this data.
+	Relinked chart labels and values to original pivot table for dynamic updates.
+	Marked the last column (Net) as a Total column.
+	Formatting:
+	Removed gridlines and vertical axis.
+	Applied a modern chart style.
+	Cut and pasted the chart into the dashboard.
+	Used a shape with rounded corners behind the chart (since waterfall charts don’t support rounded corners directly).
+	Left chart title blank to be dynamically filled later.
+
+ Top 5 Categories Table with Conditional Formatting
+ A summary table highlighting the five largest expense sub-categories.
+	Steps:
+	Created a Pivot Table:
+	Filtered to show the Top 5 sub-categories by Sum of Debit.
+	Removed Grand Total.
+	Copied the pivot values into the Dashboard using Paste Links.
+	Formatting:
+	Applied currency formatting to the values.
+	Added Conditional Formatting → Data Bars in purple for visual ranking.
+	Used a shape (thick underline) for a stylish table title without overlapping charts.
+
+ Slicers for Interactive Filtering
+ Slicers allow dynamic filtering of the dashboard by Category and Month.
+	Steps:
+	Inserted Slicers from a pivot table tied to the Tree Map:
+	Category and Date slicers
+	Customized slicer style to match dashboard aesthetics
+	Formatted slicers:
+	Renamed headers (e.g., “Month”).
+	Hide items with no data.
+	Slicer Placement:
+	Aligned both slicers on either side of the dashboard
+	Adjusted width and button size to fit layout
+	Slicer Connections:
+	Connected slicers to multiple pivot tables using Report Connections:
+	Tree Map
+	Expense Column Chart
+	Waterfall Chart
+Outcome:
+Built an interactive Excel dashboard to track personal finance, visualize income and expenses, analyze savings trends, 
+and compare actual vs. budgeted spending using pivot tables, slicers, and dynamic charts.
+
